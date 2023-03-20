@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Logo,FormStudent } from "../components";
 import styled from "styled-components";
+import { toast } from "react-toastify";
 
 const initialState = {
   name: '',
@@ -13,22 +14,57 @@ const Register = () => {
   const [values, setValues] = useState(initialState)
 
   const allInput = (e) => {
-    console.log(e.target);
+    const name = e.target.name;
+    const value = e.target.value;
+    console.log(`${name}:${value}`)
+    setValues({...values, [name]: value })
   }
   const onSubmit = (e) => {
     e.preventDefault()
-    console.log(e.target);
+    const {name, email, password, isStudent} = values;
+    if(!email || !password || (!isStudent && !name)){
+     toast.error('Not you Yorick!!')
+    }
+  }
+
+  const toggleStudent = () => {
+     setValues({...values, isStudent: !values.isStudent })
   }
 
   return (
     <Wrapper className='full-page'>
       <form className='form' onSubmit={onSubmit}>
-         <Logo />
-         <h3>Login</h3>
-         <FormStudent type='text' name='name' value={values.name} allInput={allInput} />
-         <FormStudent type='email' name='email' value={values.email} allInput={allInput} />
-         <FormStudent type='password' name='password' value={values.password} allInput={allInput} />
-         <button type="submit" className="btn btn-block">submit</button>
+        <Logo />
+        <h3> {values.isStudent ? 'Login' : 'Register'} </h3>
+        {!values.isStudent && (
+          <FormStudent
+            type='text'
+            name='name'
+            value={values.name}
+            allInput={allInput}
+          />
+        )}
+        <FormStudent
+          type='email'
+          name='email'
+          value={values.email}
+          allInput={allInput}
+        />
+        <FormStudent
+          type='password'
+          name='password'
+          value={values.password}
+          allInput={allInput}
+        />
+        <button type='submit' className='btn btn-block'>
+          submit
+        </button>
+        <p>
+         {values.isStudent? 'Not a student @ Spice ?' : 'Already a Student ?'}
+          <button type='button' onClick={toggleStudent} className="member-btn">
+            {values.isStudent ? 'Register' : 'Login'}
+          </button>
+        </p>
       </form>
     </Wrapper>
   );
@@ -61,7 +97,7 @@ const Wrapper = styled.section`
   .member-btn {
     background: transparent;
     border: transparent;
-    color: var(--primary-500);
+    color: #a32eff;
     cursor: pointer;
     letter-spacing: var(--letterSpacing);
   }
