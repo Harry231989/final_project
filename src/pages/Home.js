@@ -1,13 +1,14 @@
-import logo from "../assets/images/Spice.png"
+// import logo from "../assets/images/Spice.png"
 import adrian  from "../assets/images/Adrian.jpg"
 import styled from 'styled-components';
-
+import { Logo } from "../components";
+import { Link } from 'react-router-dom'
 
  const Home = () => {
   return (
     <Wrapper>
       <nav>
-        <img src={logo} alt='Spice Student Job' className='logo' />
+         <Logo />
       </nav>
       <div className='container page'>
         <div className='info'>
@@ -23,7 +24,7 @@ import styled from 'styled-components';
             backbone of any successful tech company and are essential to
             building the products and services that we rely on every day.
           </p>
-          <button className="btn btn-hero">Login/Register</button>
+          <Link to="/register" className="btn btn-hero">Login/Register</Link>
         </div>
         <img src={adrian} alt='Spice Student App' className='img main-img' />
       </div>
