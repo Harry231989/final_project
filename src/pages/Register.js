@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { Logo,FormStudent } from "../components";
 import styled from "styled-components";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser, registerUser } from "../features/user/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
   name: '',
@@ -12,6 +15,9 @@ const initialState = {
 
 const Register = () => {
   const [values, setValues] = useState(initialState)
+  const {user, isLoading} = useSelector(store => store.user)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const allInput = (e) => {
     const name = e.target.name;
@@ -19,17 +25,32 @@ const Register = () => {
     console.log(`${name}:${value}`)
     setValues({...values, [name]: value })
   }
+
   const onSubmit = (e) => {
     e.preventDefault()
     const {name, email, password, isStudent} = values;
     if(!email || !password || (!isStudent && !name)){
      toast.error('Not you Yorick!!')
+     return;
     }
+    if(isStudent){
+      dispatch(loginUser({ email: email, password: password }));
+      return;
+    }
+    dispatch(registerUser({ name, email, password }))
   }
 
   const toggleStudent = () => {
      setValues({...values, isStudent: !values.isStudent })
   }
+
+  useEffect(() => {
+     if(user){
+      setTimeout(() => {
+        navigate('/')
+      },2000)
+     }
+  },[user])
 
   return (
     <Wrapper className='full-page'>
@@ -56,8 +77,8 @@ const Register = () => {
           value={values.password}
           allInput={allInput}
         />
-        <button type='submit' className='btn btn-block'>
-          submit
+        <button type='submit' className='btn btn-block' disabled={isLoading}>
+         {isLoading ? 'loading...' : 'submit' }
         </button>
         <p>
          {values.isStudent? 'Not a student @ Spice ?' : 'Already a Student ?'}
