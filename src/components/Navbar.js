@@ -4,10 +4,15 @@ import Logo from './logo';
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IconContext } from "react-icons";
+import { toggleSidebar } from "../features/user/userSlice";
 
 const Navbar = () => {
    const { user } = useSelector((store) => store.user) 
    const dispatch = useDispatch();
+
+  const toggle = () => {
+    dispatch(toggleSidebar())
+  }
 
 
   return (
@@ -16,7 +21,7 @@ const Navbar = () => {
         <button
           type='button'
           className='toggle-btn'
-          onClick={() => console.log('toggle sidebar')}
+          onClick={toggle}
         >
           <IconContext.Provider value={{ color: '#57feff' }}>
             <FaAlignLeft />
