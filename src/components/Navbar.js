@@ -1,11 +1,49 @@
 import styled from "styled-components";
-import { FaHome } from "react-icons/fa";
+import {  FaAlignLeft, FaUserCircle, FaCaretDown } from "react-icons/fa";
+import Logo from './logo';
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { IconContext } from "react-icons";
 
 const Navbar = () => {
+   const { user } = useSelector((store) => store.user) 
+   const dispatch = useDispatch();
+
+
   return (
     <Wrapper>
-      <h2>Navbar</h2>
-      <FaHome />
+      <div className='nav-center'>
+        <button
+          type='button'
+          className='toggle-btn'
+          onClick={() => console.log('toggle sidebar')}
+        >
+          <IconContext.Provider value={{ color: '#57feff' }}>
+            <FaAlignLeft />
+          </IconContext.Provider>
+        </button>
+        <div>
+          <Logo />
+          <h3 className='logo-text'>dashboard</h3>
+        </div>
+        <div className='btn-container'>
+          <button
+            type='button'
+            className='btn'
+            onClick={() => console.log('toggle logout dropdown')}
+          >
+            <FaUserCircle />
+            {user?.name}
+            <FaCaretDown />
+          </button>
+          <div className="dropdown show-dropdown">
+              <button type="button" className="dropdown-btn" 
+              onClick={() => console.log('logout user')}>
+                logout
+              </button>
+          </div>
+        </div>
+      </div>
     </Wrapper>
   );
 }
@@ -27,6 +65,7 @@ const Wrapper = styled.nav`
     align-items: center;
     justify-content: space-between;
   }
+
   .toggle-btn {
     background: transparent;
     border-color: transparent;
@@ -36,6 +75,7 @@ const Wrapper = styled.nav`
     display: flex;
     align-items: center;
   }
+
   background: var(--white);
   .btn-container {
     position: relative;
@@ -66,7 +106,7 @@ const Wrapper = styled.nav`
   .dropdown-btn {
     background: transparent;
     border-color: transparent;
-    color: var(--primary-500);
+    color: #A32EFF;
     letter-spacing: var(--letterSpacing);
     text-transform: capitalize;
     cursor: pointer;
@@ -88,7 +128,7 @@ const Wrapper = styled.nav`
       display: block;
     }
   }
-`
+`;
 
 
 export default Navbar
