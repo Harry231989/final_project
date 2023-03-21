@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import {Home, Register, Error} from "./pages";
+import {Home, Register, Error, ProtectedRoute} from "./pages";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import  { Profile, AddJob, AllJobs, Stats, SharedLayout } from './pages/dashboard'
@@ -8,22 +8,29 @@ import  { Profile, AddJob, AllJobs, Stats, SharedLayout } from './pages/dashboar
 
 
 function App() {
-  return  (
-   <BrowserRouter>
-      <Routes >
-          <Route path="/" element={<SharedLayout />}>
-             <Route index element={<Stats/>} />
-             <Route path= 'all-jobs' element={<AllJobs />}/>
-             <Route path= 'add-jobs' element={<AddJob />}/>
-             <Route path= 'profile' element={<Profile />}/>
-          </Route>
-          <Route path="home" element={<Home />} />
-          <Route path="register" element={<Register />} />
-          <Route path="*" element={<Error />} />
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path='/'
+          element={
+            <ProtectedRoute>
+              <SharedLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<Stats />} />
+          <Route path='all-jobs' element={<AllJobs />} />
+          <Route path='add-jobs' element={<AddJob />} />
+          <Route path='profile' element={<Profile />} />
+        </Route>
+        <Route path='home' element={<Home />} />
+        <Route path='register' element={<Register />} />
+        <Route path='*' element={<Error />} />
       </Routes>
-      <ToastContainer position="top-center" />
-   </BrowserRouter>
-  )
+      <ToastContainer position='top-center' />
+    </BrowserRouter>
+  );
 }
 
 export default App;
