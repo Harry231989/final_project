@@ -1,10 +1,10 @@
 
 
-const FormRow = ({type, name, value, handleChange, labelText}) => {
+const FormRow = ({ type, name, value, allInput, labelText }) => {
   return (
     <div className='form-row'>
       <label htmlFor={name} className='form-label'>
-       {labelText ||  name}
+        {labelText || name}
       </label>
       <input
         type={type}
@@ -12,11 +12,11 @@ const FormRow = ({type, name, value, handleChange, labelText}) => {
         id={name}
         value={value}
         //if later there is a problem ..check the naming handleChange
-        onChange={handleChange}
+        onChange={allInput}
         className='form-input'
       />
     </div>
   );
-}
+};
 
 export default FormRow;
