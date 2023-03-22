@@ -1,5 +1,5 @@
 import Logo from "./logo";
-import FormStudent from "./FormStudent";
+import FormStudent from "./FormRow";
 import Navbar from "./Navbar";
 import SmallSidebar from "./SmallSidebar";
 import BigSidebar from "./BigSidebar";

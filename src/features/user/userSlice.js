@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
 import { toast } from "react-toastify";
 import spiceFetch from "../../utils/axios";
 import { addUserToLocalStorage, getUserFromLocalStorage, removeUserFromLocalStorage } from "../../utils/localStorage";
@@ -38,6 +39,20 @@ export const loginUser = createAsyncThunk(
 // export const loginUser = createAsyncThunk('user/loginUser', async(user, thunkAPI) => {
 //     console.log(`Login User : ${JSON.stringify(user)}`)
 // })
+
+export const updateUser = createAsyncThunk('user/updateUser',async(user,thunkAPI) => {
+    try {
+      const res = await spiceFetch.patch('/auth/updateUser', user,{
+        headers:{
+            authorization: `Bearer ${thunkAPI.getState().user.user.token}`
+        }
+      });
+      return res.data;
+    } catch (error) {
+        console.log(error.response)
+      return thunkAPI.rejectWithValue(error.response.data.msg);
+    }
+})
 
 
 
@@ -80,6 +95,20 @@ const userSlice = createSlice({
             toast.success(`Welcome Spearmint ${user.name}`)
         },
         [loginUser.rejected]: (state, { payload })=>{
+            state.isLoading = false;
+            toast.error(payload)
+        },
+        [updateUser.pending]: (state)=>{
+            state.isLoading = true;
+        },
+        [updateUser.fulfilled]: (state,{ payload })=>{
+            const {user} = payload
+            state.isLoading = false;
+            state.user = user;
+            addUserToLocalStorage(user);
+            toast.success(`Student Updated!`)
+        },
+        [updateUser.rejected]: (state, { payload })=>{
             state.isLoading = false;
             toast.error(payload)
         },
