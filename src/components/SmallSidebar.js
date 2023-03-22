@@ -1,9 +1,43 @@
+import  { FaTimes }  from 'react-icons/fa'
+// import { NavLink } from 'react-router-dom';
+import Logo from './logo';
+import { useSelector, useDispatch } from 'react-redux';
+
+
 import styled from "styled-components"
+import { IconContext } from 'react-icons';
+import { toggleSidebar } from '../features/user/userSlice';
+// 
+import NavLinks from './NavLinks';
 
 const SmallSidebar = () => {
+ const { isSidebarOpen} = useSelector((store) => store.user)
+ const dispatch = useDispatch();
+
+ const toggle = () => {
+    dispatch(toggleSidebar());
+ }
+
   return (
     <Wrapper>
-      <h2>SmallSidebar</h2>
+      <div
+        className={
+          isSidebarOpen ? 'sidebar-container show-sidebar' : 'sidebar-container'
+        }
+      >
+        <div className='content'>
+          <button className='close-btn' onClick={toggle}>
+            <IconContext.Provider value={{ color: 'red' }}>
+              <FaTimes />
+            </IconContext.Provider>
+          </button>
+          <header>
+            <Logo />
+          </header>
+         
+          <NavLinks toggleSidebar={toggle} />
+        </div>
+      </div>
     </Wrapper>
   );
 }
@@ -57,7 +91,7 @@ const Wrapper = styled.aside`
   .nav-link {
     display: flex;
     align-items: center;
-    color: var(--grey-500);
+    color: #57feff;
     padding: 1rem 0;
     text-transform: capitalize;
     transition: var(--transition);
@@ -66,7 +100,7 @@ const Wrapper = styled.aside`
     color: var(--grey-900);
   }
   .nav-link:hover .icon {
-    color: var(--primary-500);
+    color: #a57eff;
   }
   .icon {
     font-size: 1.5rem;
@@ -76,10 +110,10 @@ const Wrapper = styled.aside`
     transition: var(--transition);
   }
   .active {
-    color: var(--grey-900);
+    color: #a32eff;
   }
   .active .icon {
-    color: var(--primary-500);
+    color: #a32eff;
   }
 `;
 

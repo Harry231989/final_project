@@ -4,10 +4,16 @@ import Logo from './logo';
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IconContext } from "react-icons";
+import { toggleSidebar, logoutUser } from "../features/user/userSlice";
 
 const Navbar = () => {
+   const [showLogout, setShowLogout] = useState(false)
    const { user } = useSelector((store) => store.user) 
    const dispatch = useDispatch();
+
+  const toggle = () => {
+    dispatch(toggleSidebar())
+  }
 
 
   return (
@@ -16,7 +22,7 @@ const Navbar = () => {
         <button
           type='button'
           className='toggle-btn'
-          onClick={() => console.log('toggle sidebar')}
+          onClick={toggle}
         >
           <IconContext.Provider value={{ color: '#57feff' }}>
             <FaAlignLeft />
@@ -30,15 +36,15 @@ const Navbar = () => {
           <button
             type='button'
             className='btn'
-            onClick={() => console.log('toggle logout dropdown')}
+            onClick={() => setShowLogout(!showLogout)}
           >
             <FaUserCircle />
             {user?.name}
             <FaCaretDown />
           </button>
-          <div className="dropdown show-dropdown">
+          <div className={showLogout? 'dropdown show-dropdown' : "dropdown"}>
               <button type="button" className="dropdown-btn" 
-              onClick={() => console.log('logout user')}>
+              onClick={()=>dispatch(logoutUser())}>
                 logout
               </button>
           </div>
