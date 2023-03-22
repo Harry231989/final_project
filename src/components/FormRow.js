@@ -1,21 +1,22 @@
-import React from 'react'
 
-const FormStudent = ({type, name, value, allInput, labelText}) => {
+
+const FormRow = ({type, name, value, handleChange, labelText}) => {
   return (
     <div className='form-row'>
       <label htmlFor={name} className='form-label'>
-       {name}
+       {labelText ||  name}
       </label>
       <input
         type={type}
         name={name}
         id={name}
         value={value}
-        onChange={allInput}
+        //if later there is a problem ..check the naming handleChange
+        onChange={handleChange}
         className='form-input'
       />
     </div>
   );
 }
 
-export default FormStudent
+export default FormRow;
