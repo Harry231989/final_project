@@ -28,11 +28,11 @@ const Profile = () => {
   dispatch(updateUser(userData))
  };
 
- const handleChange = (e) => {
-  const name = e.target.name
-  const value = e.target.value
-  setUserData({...userData, [name]:value})
- }
+ const allInput = (e) => {
+   const name = e.target.name;
+   const value = e.target.value;
+   setUserData({ ...userData, [name]: value });
+ };
 
   return (
     <Wrapper>
@@ -43,31 +43,31 @@ const Profile = () => {
             type='text'
             name='name'
             value={userData.name}
-            handleChange={handleChange}
+            allInput={allInput}
           />
 
           <FormRow
             type='text'
-            labelText= 'last name'
+            labelText='last name'
             name='lastName'
             value={userData.lastName}
-            handleChange={handleChange}
+            allInput={allInput}
           />
 
           <FormRow
             type='email'
             name='email'
             value={userData.email}
-            handleChange={handleChange}
+            allInput={allInput}
           />
 
           <FormRow
             type='text'
             name='location'
             value={userData.location}
-            handleChange={handleChange}
+            allInput={allInput}
           />
-          <button type="submit" className="btn btn-block" disabled={isLoading}>
+          <button type='submit' className='btn btn-block' disabled={isLoading}>
             {isLoading ? 'Please wait' : 'save changes'}
           </button>
         </div>
