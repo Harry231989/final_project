@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom'
       <div className='container page'>
         <div className='info'>
           <h1>
-            spice <span>student</span> app
+            spice <span>student job </span> app
           </h1>
           <p>
             Hi there!!! My name is Adrian and I know am handsome, which makes

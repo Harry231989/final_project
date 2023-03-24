@@ -1,7 +1,8 @@
 import Logo from "./logo";
-import FormStudent from "./FormRow";
+import FormRow from "./FormRow";
 import Navbar from "./Navbar";
 import SmallSidebar from "./SmallSidebar";
 import BigSidebar from "./BigSidebar";
+import FormRowSelect from "./FormRowSelect";
 
-export { Logo, FormStudent, Navbar, SmallSidebar, BigSidebar };
+export { Logo, FormRow, Navbar, SmallSidebar, BigSidebar, FormRowSelect };
