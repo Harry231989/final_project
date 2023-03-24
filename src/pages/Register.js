@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Logo,FormStudent } from "../components";
+import { Logo,FormRow } from "../components";
 import styled from "styled-components";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
@@ -58,20 +58,20 @@ const Register = () => {
         <Logo />
         <h3> {values.isStudent ? 'Login' : 'Register'} </h3>
         {!values.isStudent && (
-          <FormStudent
+          <FormRow
             type='text'
             name='name'
             value={values.name}
             allInput={allInput}
           />
         )}
-        <FormStudent
+        <FormRow
           type='email'
           name='email'
           value={values.email}
           allInput={allInput}
         />
-        <FormStudent
+        <FormRow
           type='password'
           name='password'
           value={values.password}
