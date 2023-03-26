@@ -12,4 +12,4 @@ const AllJobs = () => {
   )
 }
 
-export default AllJobs
+export default AllJobs;

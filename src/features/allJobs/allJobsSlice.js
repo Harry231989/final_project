@@ -24,10 +24,9 @@ const initialState = {
 
 
 export const getAllJobs = createAsyncThunk('allJobs/getJobs', async(_,thunkAPI) => {
-    let url = `/jobs`
+    let url = `/jobs`;
      try{
-        const res = await spiceFetch.get(url)
-          console.log(res.data)
+        const res = await spiceFetch.get(url);
           return res.data
      } catch (error) {
         return thunkAPI.rejectWithValue('There was an error')
