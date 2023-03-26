@@ -1,5 +1,3 @@
-
-
 import spiceFetch from '../../utils/axios';
 import { logoutUser } from './userSlice';
 
