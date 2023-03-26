@@ -9,7 +9,7 @@ import { logoutUser } from '../user/userSlice';
 
 export const createJobThunk =  async(job, thunkAPI) => {
     try{
-      const res = await spiceFetch.post('/jobs', job)
+      const res = await spiceFetch.post('/jobs', job);
       thunkAPI.dispatch(clearValues());
       return res.data.msg;
     } catch (error) {
@@ -40,7 +40,7 @@ export const editJobThunk = async ({ jobId, job }, thunkAPI) => {
   try {
     const res = await spiceFetch.patch(`/jobs/${jobId}`, job);
     thunkAPI.dispatch(clearValues());
-    return res.data;
+    return res.data.msg;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response.data.msg);
   }

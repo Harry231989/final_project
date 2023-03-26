@@ -1,9 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import spiceFetch from "../../utils/axios";
 import { getUserFromLocalStorage } from "../../utils/localStorage";
 
-import { showLoading, hideLoading, getAllJobs } from "../allJobs/allJobsSlice";
 import { createJobThunk, deleteJobThunk, editJobThunk } from "./jobThuck";
 
 const initialState = {
