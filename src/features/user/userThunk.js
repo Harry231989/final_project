@@ -25,7 +25,7 @@ export const loginUserThunk = async(url, user, thunkAPI) => {
 
 export const updateUserThunk = async(url, user, thunkAPI) => {
    try {
-     const res = await spiceFetch.patch(url, user, );
+     const res = await spiceFetch.patch(url, user);
      return res.data;
    } catch (error) {
      if (error.response.status === 401) {
