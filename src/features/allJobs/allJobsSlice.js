@@ -32,32 +32,58 @@ export const getAllJobs = createAsyncThunk('allJobs/getJobs', async(_,thunkAPI) 
         return thunkAPI.rejectWithValue('There was an error')
 
      }
+});
+
+
+export const showStats = createAsyncThunk('allJobs/showStats', async (_,thunkAPI) => {
+    try {
+        const res = await spiceFetch.get('/jobs/stats')
+        console.log(res.data);
+     return res.data
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error.response.data.msg)
+    }
 })
 
+
+
+
 const allJobsSlice = createSlice({
-    name: 'allJobs',
-    initialState,
-    reducers: {
-        showLoading: (state)=> {
-          state.isLoading = true;
-        },
-        hideLoading: (state)=> {
-          state.isLoading = false;
-        },
+  name: 'allJobs',
+  initialState,
+  reducers: {
+    showLoading: (state) => {
+      state.isLoading = true;
     },
-    extraReducers: {
-        [getAllJobs.pending]: (state) => {
-            state.isLoading = true
-        },
-        [getAllJobs.fulfilled]: (state, {payload}) => {
-            state.isLoading = false
-            state.jobs = payload.jobs
-        },
-        [getAllJobs.rejected]: (state, {payload}) => {
-            state.isLoading = false
-            toast.error(payload)
-        }
-    }
+    hideLoading: (state) => {
+      state.isLoading = false;
+    },
+  },
+  extraReducers: {
+    [getAllJobs.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getAllJobs.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.jobs = payload.jobs;
+    },
+    [getAllJobs.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      toast.error(payload);
+    },
+    [showStats.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [showStats.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.stats = payload.defaultStats;
+      state.monthlyApplications = payload.monthlyApplications;
+    },
+    [showStats.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      toast.error(payload);
+    },
+  },
 });
 
 
